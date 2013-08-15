@@ -1,0 +1,14 @@
+{
+  "name": "createjs-lab",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "easeljs": "git://github.com/CreateJS/EaselJS.git#release_v0.6.1"
+  }
+}
