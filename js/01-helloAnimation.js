@@ -45,6 +45,7 @@ var myLab = myLab || {};
 
     // start the animation
     createjs.Ticker.addEventListener('tick', this.animate);
+    createjs.Ticker.useRAF = true;
   };
 
   // handle the animation
