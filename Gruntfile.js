@@ -19,6 +19,7 @@ module.exports = function(grunt) {
       options: {
         browser: true,
         undef: true,
+        devel: true,
         globals: {
           createjs: true
         }
