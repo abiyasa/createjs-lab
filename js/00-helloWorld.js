@@ -6,7 +6,7 @@ var myLab = myLab || {};
   var stage;
 
   // Init the stage
-  initStage = function (canvasId) {
+  var initStage = function (canvasId) {
     var canvas = document.getElementById(canvasId);
     if (canvas) {
       stage = new createjs.Stage(canvas);
@@ -17,7 +17,7 @@ var myLab = myLab || {};
   ns.init = function () {
     initStage('canvas-main');
 
-    // create container box    
+    // create container box
     var containerBox = new createjs.Container();
 
     // add rectangular shape

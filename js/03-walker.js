@@ -14,7 +14,7 @@ var myLab = myLab || {};
   var hero;
 
   // Init the stage using the given canvas id
-  initStage = function (canvasId) {
+  var initStage = function (canvasId) {
     canvas = document.getElementById(canvasId);
     if (canvas) {
       stage = new createjs.Stage(canvas);
