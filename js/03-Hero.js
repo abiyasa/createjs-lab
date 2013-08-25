@@ -12,13 +12,18 @@ var myLab = myLab || {};
   Hero.WIDTH = 32;
   Hero.HEIGHT = 32;
 
-  // status of hero movement. For its value, see variables Hero.HERO_MOVE_*
-  HeroProto.currentStatus = Hero.HERO_STATUS_MOVE_NONE;
-  Hero.HERO_STATUS_MOVE_NONE = 0;
-  Hero.HERO_STATUS_MOVE_NORTH = 10;
-  Hero.HERO_STATUS_MOVE_EAST = 20;
-  Hero.HERO_STATUS_MOVE_SOUTH = 30;
-  Hero.HERO_STATUS_MOVE_WEST = 40;
+  // status of hero movement. For its value, see variables Hero.MOVE_*
+  HeroProto.currentStatus = Hero.STATUS_MOVE_NONE;
+  Hero.STATUS_MOVE_NONE = 0;
+  Hero.STATUS_MOVE_NORTH = 10;
+  Hero.STATUS_MOVE_EAST = 20;
+  Hero.STATUS_MOVE_SOUTH = 30;
+  Hero.STATUS_MOVE_WEST = 40;
+
+  // Hero movement speed
+  HeroProto.speedX = 0;
+  HeroProto.speedY = 0;
+  Hero.HEROspeedY = 0;
 
   HeroProto.initialize = function() {
     // create sprite sheet
@@ -92,8 +97,14 @@ var myLab = myLab || {};
     this.x = (canvas.width / 2) - (Hero.WIDTH / 2);
     this.y = (canvas.height / 2) - (Hero.HEIGHT / 2);
 
+    // store movement limit
+    this.minX = 0;
+    this.minY = 0;
+    this.maxX = canvas.width - Hero.WIDTH;
+    this.maxY = canvas.height - Hero.HEIGHT;
+
     // force status
-    this.setStatus(Hero.HERO_STATUS_MOVE_NONE, true);
+    this.setStatus(Hero.STATUS_MOVE_NONE, true);
   };
 
   // Change the hero status. This will handle animation and movement
@@ -114,27 +125,27 @@ var myLab = myLab || {};
 
   // update and play new animation based on new current status
   HeroProto._updateAnimation = function () {
-    // TODO mapping between status and animation name
+    // mapping between status and animation name
     var animationName;
     switch (this._currentStatus) {
-    case Hero.HERO_STATUS_MOVE_NONE:
-      // nothing happen
+    case Hero.STATUS_MOVE_NONE:
+      // always stand facing south
       animationName = 'stand_s';
       break;
 
-    case Hero.HERO_STATUS_MOVE_WEST:
+    case Hero.STATUS_MOVE_WEST:
       animationName = 'walk_w';
       break;
 
-    case Hero.HERO_STATUS_MOVE_SOUTH:
+    case Hero.STATUS_MOVE_SOUTH:
       animationName = 'walk_s';
       break;
 
-    case Hero.HERO_STATUS_MOVE_EAST:
+    case Hero.STATUS_MOVE_EAST:
       animationName = 'walk_e';
       break;
 
-    case Hero.HERO_STATUS_MOVE_NORTH:
+    case Hero.STATUS_MOVE_NORTH:
       animationName = 'walk_n';
       break;
     }

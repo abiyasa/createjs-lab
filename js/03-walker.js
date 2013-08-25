@@ -56,19 +56,19 @@ var myLab = myLab || {};
   var onKeyDown = function (event) {
     switch (event.keyCode) {
     case 38: // UP
-      hero.setStatus(Hero.HERO_STATUS_MOVE_NORTH);
+      hero.setStatus(Hero.STATUS_MOVE_NORTH);
       break;
 
     case 37: // LEFT
-      hero.setStatus(Hero.HERO_STATUS_MOVE_WEST);
+      hero.setStatus(Hero.STATUS_MOVE_WEST);
       break;
 
     case 39: // RIGHT
-      hero.setStatus(Hero.HERO_STATUS_MOVE_EAST);
+      hero.setStatus(Hero.STATUS_MOVE_EAST);
       break;
 
     case 40: // DOWN
-      hero.setStatus(Hero.HERO_STATUS_MOVE_SOUTH);
+      hero.setStatus(Hero.STATUS_MOVE_SOUTH);
       break;
     }
   };
@@ -80,7 +80,7 @@ var myLab = myLab || {};
     case 37: // LEFT
     case 39: // RIGHT
     case 40: // DOWN
-      hero.setStatus(Hero.HERO_STATUS_MOVE_NONE);
+      hero.setStatus(Hero.STATUS_MOVE_NONE);
       break;
     }
   };
