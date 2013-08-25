@@ -191,8 +191,8 @@ var myLab = myLab || {};
   HeroProto.update = function (event) {
     // update position
     var delta = event.delta * 0.001;
-    this.x += (this.speedX * delta);
-    this.y += (this.speedY * delta);
+    this.x += Math.floor(this.speedX * delta);
+    this.y += Math.floor(this.speedY * delta);
   };
 
   ns.Hero = Hero;
