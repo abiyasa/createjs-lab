@@ -18,11 +18,12 @@ module.exports = function(grunt) {
       files: ['js/*.js'],
       options: {
         browser: true,
+        undef: true,
         globals: {
           createjs: true
         }
       }
-    }    
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-connect');
