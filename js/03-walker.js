@@ -11,6 +11,7 @@ var myLab = myLab || {};
   var bg;
 
   // main hero
+  var Hero = ns.Hero; // shortcut for the class
   var hero;
 
   // Init the stage using the given canvas id
@@ -28,7 +29,11 @@ var myLab = myLab || {};
     stage.addChild(bg);
 
     // create hero
-    hero = new ns.Hero();
+    hero = new Hero();
+
+    // register event handler for input
+    document.onkeydown = onKeyDown;
+    document.onkeyup = onKeyUp;
 
     stage.addChild(hero);
   };
@@ -38,12 +43,46 @@ var myLab = myLab || {};
     // clear & reset
     hero.reset(canvas);
 
-    hero.walk();
-
     // start the animation
-    createjs.Ticker.setFPS(15);
-    createjs.Ticker.addEventListener('tick', onTick);
-    createjs.Ticker.useRAF = true;
+    var ticker = createjs.Ticker;
+    ticker.setFPS(15);
+    ticker.useRAF = true;
+    if (!ticker.hasEventListener('tick')) {
+      ticker.addEventListener('tick', onTick);
+    }
+  };
+
+  // Handle key pressed down event
+  var onKeyDown = function (event) {
+    switch (event.keyCode) {
+    case 38: // UP
+      hero.setStatus(Hero.HERO_STATUS_MOVE_NORTH);
+      break;
+
+    case 37: // LEFT
+      hero.setStatus(Hero.HERO_STATUS_MOVE_WEST);
+      break;
+
+    case 39: // RIGHT
+      hero.setStatus(Hero.HERO_STATUS_MOVE_EAST);
+      break;
+
+    case 40: // DOWN
+      hero.setStatus(Hero.HERO_STATUS_MOVE_SOUTH);
+      break;
+    }
+  };
+
+  // Handle key release event
+  var onKeyUp = function (event) {
+    switch (event.keyCode) {
+    case 38: // UP
+    case 37: // LEFT
+    case 39: // RIGHT
+    case 40: // DOWN
+      hero.setStatus(Hero.HERO_STATUS_MOVE_NONE);
+      break;
+    }
   };
 
   // handle the game tick
