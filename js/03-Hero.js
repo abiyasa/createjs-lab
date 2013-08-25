@@ -20,10 +20,11 @@ var myLab = myLab || {};
   Hero.STATUS_MOVE_SOUTH = 30;
   Hero.STATUS_MOVE_WEST = 40;
 
-  // Hero movement speed
+  // Hero movement speed, in pixel per second
   HeroProto.speedX = 0;
   HeroProto.speedY = 0;
-  Hero.HEROspeedY = 0;
+  Hero.MAX_SPEED = 50;
+  Hero.MIN_SPEED = -Hero.MAX_SPEED;
 
   HeroProto.initialize = function() {
     // create sprite sheet
@@ -118,13 +119,43 @@ var myLab = myLab || {};
 
     // TODO validate new status
     this._currentStatus = newStatus;
-    console.log('Cngaing hero status to ', newStatus);
+    console.log('Changing hero status to ', newStatus);
 
-    this._updateAnimation();
+    this._changeMovement();
+    this._changeAnimation();
   };
 
-  // update and play new animation based on new current status
-  HeroProto._updateAnimation = function () {
+  // change hero speed & movement based on new current status
+  HeroProto._changeMovement = function () {
+    switch (this._currentStatus) {
+    case Hero.STATUS_MOVE_NONE:
+      this.speedX = this.speedY = 0;
+      break;
+
+    case Hero.STATUS_MOVE_WEST:
+      this.speedX = Hero.MIN_SPEED;
+      this.speedY = 0;
+      break;
+
+    case Hero.STATUS_MOVE_SOUTH:
+      this.speedX = 0;
+      this.speedY = Hero.MAX_SPEED;
+      break;
+
+    case Hero.STATUS_MOVE_EAST:
+      this.speedX = Hero.MAX_SPEED;
+      this.speedY = 0;
+      break;
+
+    case Hero.STATUS_MOVE_NORTH:
+      this.speedX = 0;
+      this.speedY = Hero.MIN_SPEED;
+      break;
+    }
+  };
+
+  // change and play new animation based on new current status
+  HeroProto._changeAnimation = function () {
     // mapping between status and animation name
     var animationName;
     switch (this._currentStatus) {
@@ -154,6 +185,14 @@ var myLab = myLab || {};
       this._animation.gotoAndPlay(animationName);
       console.log('Playing animation', animationName);
     }
+  };
+
+  // Update hero movement and other status
+  HeroProto.update = function (event) {
+    // update position
+    var delta = event.delta * 0.001;
+    this.x += (this.speedX * delta);
+    this.y += (this.speedY * delta);
   };
 
   ns.Hero = Hero;

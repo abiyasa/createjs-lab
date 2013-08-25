@@ -87,6 +87,7 @@ var myLab = myLab || {};
 
   // handle the game tick
   var onTick = function (event) {
+    hero.update(event);
 
     // draw stage
     stage.update();
