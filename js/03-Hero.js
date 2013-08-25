@@ -22,24 +22,61 @@ var myLab = myLab || {};
 
   HeroProto.initialize = function() {
     // create sprite sheet
+    var frameFrequency = 3;  // the bigger the 'slower'
     var baseUrl = 'assets/TheLight-raw/';
     var spriteSheet = new createjs.SpriteSheet({
       images: [
         baseUrl + 'char_e1.png',
         baseUrl + 'char_e2.png',
-        baseUrl + 'char_e3.png'
+        baseUrl + 'char_e3.png',
+
+        baseUrl + 'char_s1.png',
+        baseUrl + 'char_s2.png',
+        baseUrl + 'char_s3.png',
+
+        baseUrl + 'char_w1.png',
+        baseUrl + 'char_w2.png',
+        baseUrl + 'char_w3.png',
+
+        baseUrl + 'char_n1.png',
+        baseUrl + 'char_n2.png',
+        baseUrl + 'char_n3.png',
       ],
       frames: {
         'height': Hero.WIDTH,
         'width': Hero.HEIGHT
       },
       animations: {
-        walk: {
+        walk_e: {
           frames: [ 0, 1, 0, 2 ],
-          frequency: 3  // the bigger the 'slower'
+          frequency: frameFrequency
         },
-        stand: {
+        stand_e: {
           frames: [ 0 ]
+        },
+
+        walk_s: {
+          frames: [ 3, 4, 3, 5 ],
+          frequency: frameFrequency
+        },
+        stand_s: {
+          frames: [ 3 ]
+        },
+
+        walk_w: {
+          frames: [ 6, 7, 6, 8 ],
+          frequency: frameFrequency
+        },
+        stand_w: {
+          frames: [ 6 ]
+        },
+
+        walk_n: {
+          frames: [ 9, 10, 9, 11 ],
+          frequency: frameFrequency
+        },
+        stand_n: {
+          frames: [ 9 ]
         }
       }
     });
@@ -82,14 +119,23 @@ var myLab = myLab || {};
     switch (this._currentStatus) {
     case Hero.HERO_STATUS_MOVE_NONE:
       // nothing happen
-      animationName = 'stand';
+      animationName = 'stand_s';
       break;
 
     case Hero.HERO_STATUS_MOVE_WEST:
+      animationName = 'walk_w';
+      break;
+
     case Hero.HERO_STATUS_MOVE_SOUTH:
+      animationName = 'walk_s';
+      break;
+
     case Hero.HERO_STATUS_MOVE_EAST:
+      animationName = 'walk_e';
+      break;
+
     case Hero.HERO_STATUS_MOVE_NORTH:
-      animationName = 'walk';
+      animationName = 'walk_n';
       break;
     }
 
