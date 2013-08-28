@@ -58,15 +58,26 @@ var myLab = myLab || {};
 
     moveSpeedX = 50;  // pixel per second
     godzilla.gotoAndPlay('walk');
+    updateAnimation();
 
     // start the animation
     createjs.Ticker.setFPS(15);
-    createjs.Ticker.addEventListener('tick', this.animate);
+    createjs.Ticker.addEventListener('tick', onTick);
     createjs.Ticker.useRAF = true;
   };
 
+  // change the animation based on moving direction
+  var updateAnimation = function () {
+    if (moveSpeedX < 0) {
+      // flip horizontal
+      godzilla.scaleX = -1;
+    } else {
+      godzilla.scaleX = 1;
+    }
+  };
+
   // handle the animation
-  ns.animate = function (event) {
+  var onTick = function (event) {
     // update position
     var newPos = godzilla.x + (moveSpeedX * event.delta * 0.001);
 
@@ -74,6 +85,7 @@ var myLab = myLab || {};
     if ((newPos >= maxPosX) || (newPos <=  minPosX)) {
       // change direction
       moveSpeedX *= -1;
+      updateAnimation();
     }
     godzilla.x = newPos;
 
