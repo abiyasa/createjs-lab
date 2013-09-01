@@ -16,6 +16,8 @@ var myLab = myLab || {};
   Hero.HIT_WIDTH = 70;
   Hero.HIT_HEIGHT = 60;
 
+  Hero.MAX_SPEED = 250;
+
   // properties
   Proto.moveSpeedX = 0;
   Proto.minPosX = 0;
@@ -61,6 +63,20 @@ var myLab = myLab || {};
 
     // start animation
     this._asset.gotoAndPlay('walk');
+  };
+
+  // Sets the movement direction.
+  // Direction < 0 means left,
+  // Direction > 0 means right,
+  // Direction = 0 means stop moving.
+  Proto.move = function (direction) {
+    if (direction < 0) {
+      this.moveSpeedX = -Hero.MAX_SPEED;
+    } else if (direction > 0) {
+      this.moveSpeedX = Hero.MAX_SPEED;
+    } else {
+      this.moveSpeedX = 0;
+    }
   };
 
   // update position

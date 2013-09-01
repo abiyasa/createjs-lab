@@ -48,11 +48,39 @@ var myLab = myLab || {};
 
   // start game
   var startGame = function () {
+    // register event handler for input
+    document.onkeydown = onKeyDown;
+    document.onkeyup = onKeyUp;
 
     // start the animation
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener('tick', onTick);
     createjs.Ticker.useRAF = true;
+  };
+
+  // Handle key pressed down event
+  var onKeyDown = function (event) {
+    switch (event.keyCode) {
+    case 37: // LEFT
+      hero.move(-1);
+      break;
+
+    case 39: // RIGHT
+      hero.move(1);
+      break;
+    }
+  };
+
+  // Handle key release event
+  var onKeyUp = function (event) {
+    switch (event.keyCode) {
+    case 38: // UP
+    case 37: // LEFT
+    case 39: // RIGHT
+    case 40: // DOWN
+      hero.move(0);
+      break;
+    }
   };
 
   // update all game objects
