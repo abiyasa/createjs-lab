@@ -6,6 +6,7 @@ var myLab = myLab || {};
   var canvas;
 
   var sphere;
+  var hero;
 
   // Init the stage
   var initStage = function (canvasId) {
@@ -31,6 +32,10 @@ var myLab = myLab || {};
     sphere = new ns.Sphere();
     stage.addChild(sphere);
 
+    // create hero
+    hero = new ns.Hero();
+    stage.addChild(hero);
+
     resetGame();
     startGame();
   };
@@ -38,6 +43,7 @@ var myLab = myLab || {};
   // reset all game properties
   var resetGame = function () {
     sphere.reset(canvas);
+    hero.reset(canvas);
   };
 
   // start game
@@ -54,6 +60,7 @@ var myLab = myLab || {};
     var delta = event.delta * 0.001;
 
     sphere.update(delta);
+    hero.update(delta);
 
     // draw stage
     stage.update();
