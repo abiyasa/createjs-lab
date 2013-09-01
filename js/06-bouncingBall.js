@@ -74,14 +74,30 @@ var myLab = myLab || {};
     var newPosY = sphere.y + (moveSpeedY * delta);
 
     // check new position and bounce
-    if ((newPosX >= maxPosX) || (newPosX <=  minPosX)) {
+    var dist = newPosX - maxPosX;
+    if (dist > 0) {
       // bounce
       moveSpeedX *= -1;
+      newPosX = maxPosX - dist;
     }
-    if ((newPosY >= maxPosY) || (newPosY <=  minPosY)) {
+    if (newPosX < 0) {
+      // bounce
+      moveSpeedX *= -1;
+      newPosX = newPosX * -1;
+    }
+    dist = newPosY - maxPosY;
+    if (dist > 0) {
       // bounce
       moveSpeedY *= -1;
+      newPosY = maxPosY - dist;
     }
+    if (newPosY < 0) {
+      // bounce
+      moveSpeedY *= -1;
+      newPosY = newPosY * -1;
+    }
+
+    // update position
     sphere.x = newPosX;
     sphere.y = newPosY;
   };
