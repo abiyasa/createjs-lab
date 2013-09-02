@@ -13,8 +13,7 @@ var myLab = myLab || {};
   var Proto = Sphere.prototype = new createjs.Container();
 
   // Static
-  Sphere.HIT_WIDTH = 15;
-  Sphere.HIT_HEIGHT = 15;
+  Sphere.HIT_RADIUS = 8;
 
   // properties
   Proto.moveSpeedX = 0;
@@ -29,15 +28,18 @@ var myLab = myLab || {};
 
     // create asset
     var asset = new createjs.Bitmap(baseUrl + 'sphere.png');
+    asset.regX = 8;
+    asset.regY = 8;
     this.addChild(asset);
   };
 
   // reset all properties
   Proto.reset = function (canvas) {
-    this.minPosX = 0;
-    this.maxPosX = canvas.width - Sphere.HIT_WIDTH;
-    this.minPosY = 0;
-    this.maxPosY = canvas.height - Sphere.HIT_HEIGHT;
+    var hitRadius = Sphere.HIT_RADIUS;
+    this.minPosX = hitRadius;
+    this.maxPosX = canvas.width - hitRadius;
+    this.minPosY = hitRadius;
+    this.maxPosY = canvas.height - hitRadius;
 
     this.moveSpeedX = 150;  // pixel per second
     this.moveSpeedY = -150;  // pixel per second
