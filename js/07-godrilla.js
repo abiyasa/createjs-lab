@@ -90,7 +90,13 @@ var myLab = myLab || {};
     sphere.update(delta);
     hero.update(delta);
 
-    // TODO detect collision between hero and the sphere
+    // detect collision between hero and the sphere
+    if (sphere.hitTest(hero)) {
+      if (sphere.moveSpeedY > 0) {
+        // only bounce if ball is moving downward
+        sphere.moveSpeedY *= -1;
+      }
+    }
 
     // draw stage
     stage.update();

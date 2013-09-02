@@ -74,6 +74,8 @@ var myLab = myLab || {};
       // bounce
       this.moveSpeedY *= -1;
       newPosY = this.maxPosY - dist;
+
+      // TODO handle sphere pass the bottom of screen
     }
     if (newPosY < 0) {
       // bounce
@@ -89,8 +91,15 @@ var myLab = myLab || {};
   // Do circular hit test with the target Object
   // Returns true if this sphere is collide the given object
   Proto.hitTest = function (targetObject) {
-    // TODO implement this
-    return false;
+    var tempValue = false;
+    var targetRadius = targetObject.hitRadius;
+    if (targetRadius) {
+      var squareDistance = ((this.x - targetObject.x) * (this.x - targetObject.x)) +
+        ((this.y - targetObject.y) * (this.y - targetObject.y));
+      tempValue = squareDistance <= ((this.hitRadius + targetRadius) * (this.hitRadius + targetRadius));
+    }
+
+    return tempValue;
   };
 
 })(myLab);
