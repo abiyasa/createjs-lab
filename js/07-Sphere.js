@@ -24,6 +24,8 @@ var myLab = myLab || {};
   Proto.maxPosY = 0;
 
   Proto.initialize = function () {
+    this.hitRadius = Sphere.HIT_RADIUS;
+
     var baseUrl = 'assets/spaceGodzilla/';
 
     // create asset
@@ -35,7 +37,7 @@ var myLab = myLab || {};
 
   // reset all properties
   Proto.reset = function (canvas) {
-    var hitRadius = Sphere.HIT_RADIUS;
+    var hitRadius = this.hitRadius;
     this.minPosX = hitRadius;
     this.maxPosX = canvas.width - hitRadius;
     this.minPosY = hitRadius;
@@ -82,6 +84,13 @@ var myLab = myLab || {};
     // update position
     this.x = newPosX;
     this.y = newPosY;
+  };
+
+  // Do circular hit test with the target Object
+  // Returns true if this sphere is collide the given object
+  Proto.hitTest = function (targetObject) {
+    // TODO implement this
+    return false;
   };
 
 })(myLab);

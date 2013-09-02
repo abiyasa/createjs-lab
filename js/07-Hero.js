@@ -21,8 +21,10 @@ var myLab = myLab || {};
   Proto.moveSpeedX = 0;
   Proto.minPosX = 0;
   Proto.maxPosX = 0;
+  Proto.hitRadius = 0;
 
   Proto.initialize = function () {
+    this.hitRadius = Hero.HIT_RADIUS;
 
     // create sprite sheet
     var frameFrequency = 5;  // the bigger the 'slower'
@@ -48,8 +50,8 @@ var myLab = myLab || {};
 
   // reset all properties
   Proto.reset = function (canvas) {
-    this.minPosX = Hero.HIT_RADIUS;
-    this.maxPosX = canvas.width - Hero.HIT_RADIUS;
+    this.minPosX = this.hitRadius;
+    this.maxPosX = canvas.width - this.hitRadius;
 
     this.moveSpeedX = 0;  // pixel per second
 
