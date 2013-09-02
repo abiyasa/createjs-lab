@@ -13,8 +13,7 @@ var myLab = myLab || {};
   var Proto = Hero.prototype = new createjs.Container();
 
   // Static
-  Hero.HIT_WIDTH = 70;
-  Hero.HIT_HEIGHT = 60;
+  Hero.HIT_RADIUS = 37;
 
   Hero.MAX_SPEED = 250;
 
@@ -33,7 +32,9 @@ var myLab = myLab || {};
       frames: {
         width: 74,
         height: 64,
-        count: 8
+        count: 8,
+        regX: 37,
+        regY: 32
       },
       animations: {
         walk: [ 0, 7, true, frameFrequency ]
@@ -47,8 +48,8 @@ var myLab = myLab || {};
 
   // reset all properties
   Proto.reset = function (canvas) {
-    this.minPosX = 0;
-    this.maxPosX = canvas.width - Hero.HIT_WIDTH;
+    this.minPosX = Hero.HIT_RADIUS;
+    this.maxPosX = canvas.width - Hero.HIT_RADIUS;
 
     this.moveSpeedX = 0;  // pixel per second
 
@@ -70,13 +71,11 @@ var myLab = myLab || {};
 
       // face left
       this._asset.scaleX = -1;
-      this._asset.x = 74;  // since the regX is 0, need to readjust
     } else if (direction > 0) {
       this.moveSpeedX = Hero.MAX_SPEED;
 
       // face right
       this._asset.scaleX = 1;
-      this._asset.x = 0;
     } else {
       this.moveSpeedX = 0;
     }
