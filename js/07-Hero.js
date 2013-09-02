@@ -67,8 +67,16 @@ var myLab = myLab || {};
   Proto.move = function (direction) {
     if (direction < 0) {
       this.moveSpeedX = -Hero.MAX_SPEED;
+
+      // face left
+      this._asset.scaleX = -1;
+      this._asset.x = 74;  // since the regX is 0, need to readjust
     } else if (direction > 0) {
       this.moveSpeedX = Hero.MAX_SPEED;
+
+      // face right
+      this._asset.scaleX = 1;
+      this._asset.x = 0;
     } else {
       this.moveSpeedX = 0;
     }

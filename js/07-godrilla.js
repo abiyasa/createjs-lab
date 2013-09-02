@@ -90,6 +90,8 @@ var myLab = myLab || {};
     sphere.update(delta);
     hero.update(delta);
 
+    // TODO detect collision between hero and the sphere
+
     // draw stage
     stage.update();
   };
