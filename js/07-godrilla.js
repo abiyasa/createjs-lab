@@ -7,6 +7,7 @@ var myLab = myLab || {};
 
   var sphere;
   var hero;
+  var buildings;
 
   // Init the stage
   var initStage = function (canvasId) {
@@ -104,6 +105,7 @@ var myLab = myLab || {};
     });
 
     // generate several buildings using the same spritesheet
+    buildings = [];
     var numOfCols = 15;
     var numOfRows = 8;
     var padding = 10;
@@ -115,14 +117,43 @@ var myLab = myLab || {};
         building = new createjs.BitmapAnimation(spriteSheet);
         building.x = posX;
         building.y = posY;
+        building.hitRadius = 20;  // for sphere.hitTest()
         stage.addChild(building);
 
         // show different frame, randomly
         building.gotoAndStop(Math.floor(Math.random() * 5));
 
+        buildings.push(building);
+
         posX += 20 + padding;
       }
       posY += 20 + padding;
+    }
+  };
+
+  // handle collision between sphere and the building
+  var handleBuildingCollision = function () {
+    var sphereHit = false;
+    var numOfBuildings = buildings.length;
+    var i = 0;
+    var building;
+    while (!sphereHit && (i < numOfBuildings)) {
+      building = buildings[i];
+
+      if (sphere.hitTest(building)) {
+        sphereHit = true;
+
+        // remove the building
+        buildings.splice(i, 1);
+        stage.removeChild(building);
+
+        // TODO bounce the ball
+        sphere.moveSpeedY *= -1;
+        sphere.moveSpeedX *= -1;
+      }
+
+      // next building
+      i++;
     }
   };
 
@@ -140,6 +171,9 @@ var myLab = myLab || {};
         sphere.moveSpeedY *= -1;
       }
     }
+
+    // detect collision between sphere and the buildings
+    handleBuildingCollision();
 
     // draw stage
     stage.update();
