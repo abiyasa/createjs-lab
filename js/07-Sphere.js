@@ -48,7 +48,7 @@ var myLab = myLab || {};
 
     // put sphere in the middle
     this.x = canvas.width / 2;
-    this.y = canvas.height / 2;
+    this.y = canvas.height - 200;
   };
 
   // update the sphere position

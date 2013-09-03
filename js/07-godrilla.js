@@ -107,7 +107,7 @@ var myLab = myLab || {};
     // generate several buildings using the same spritesheet
     buildings = [];
     var numOfCols = 15;
-    var numOfRows = 8;
+    var numOfRows = 6;
     var padding = 10;
     var col, row, posX, posY = 100, frameNum;
     var building;
