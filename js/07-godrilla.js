@@ -147,9 +147,37 @@ var myLab = myLab || {};
         buildings.splice(i, 1);
         stage.removeChild(building);
 
-        // TODO bounce the ball
-        sphere.moveSpeedY *= -1;
-        sphere.moveSpeedX *= -1;
+        // check which area the sphere hit the ball
+        // source: http://stackoverflow.com/questions/3309617/calculating-degrees-between-2-points-with-inverse-y-axis
+        var hitAngle = Math.atan2(sphere.y - building.y, building.x - sphere.x);
+        if (hitAngle < 0) {
+          hitAngle += 2 * Math.PI;
+        }
+        hitAngle = Math.floor(hitAngle * 180 / Math.PI);
+
+        // calculate bounce direction
+        var bounceX = -1, bounceY = -1;
+        if ((hitAngle >= 315) && (hitAngle < 45)) {
+            // from top
+            bounceX = 1;
+            bounceY = -1;
+        } else if ((hitAngle >= 45) && (hitAngle < 135)) {
+            // from left
+            bounceX = -1;
+            bounceY = 1;
+        } else if ((hitAngle >= 135) && (hitAngle < 225)) {
+            // from below
+            bounceX = 1;
+            bounceY = -1;
+        } else if ((hitAngle >= 225) && (hitAngle < 315)) {
+            // from right
+            bounceX = -1;
+            bounceY = 1;
+        }
+
+        // bounce the ball
+        sphere.moveSpeedY *= bounceX;
+        sphere.moveSpeedX *= bounceY;
       }
 
       // next building
