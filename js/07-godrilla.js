@@ -36,6 +36,8 @@ var myLab = myLab || {};
     hero = new ns.Hero();
     stage.addChild(hero);
 
+    createBuildings();
+
     resetGame();
     startGame();
   };
@@ -80,6 +82,47 @@ var myLab = myLab || {};
     case 40: // DOWN
       hero.move(0);
       break;
+    }
+  };
+
+  // create buildings to be destroyed
+  var createBuildings = function () {
+    // create sprite sheet
+    var spriteSheet = new createjs.SpriteSheet({
+      images: [ 'assets/spaceGodzilla/buildings.png' ],
+      frames: [
+        [ 33, 0, 27, 62, 0, 13, 42 ],
+        [ 96, 0, 15, 62, 0, 8, 42 ],
+        [ 79, 0, 15, 62, 0, 8, 42 ],
+        [ 62, 0, 15, 64, 0, 8, 42 ],
+        [ 0, 0, 31, 59, 0, 15, 39 ]
+      ],
+      animations: {
+        // dummy animations
+        tilemap: [ 0, 4 ]
+      }
+    });
+
+    // generate several buildings using the same spritesheet
+    var numOfCols = 15;
+    var numOfRows = 8;
+    var padding = 10;
+    var col, row, posX, posY = 100, frameNum;
+    var building;
+    for (row = 0; row < numOfRows; row++) {
+      posX = 25;
+      for (col = 0; col < numOfCols; col++) {
+        building = new createjs.BitmapAnimation(spriteSheet);
+        building.x = posX;
+        building.y = posY;
+        stage.addChild(building);
+
+        // show different frame, randomly
+        building.gotoAndStop(Math.floor(Math.random() * 5));
+
+        posX += 20 + padding;
+      }
+      posY += 20 + padding;
     }
   };
 

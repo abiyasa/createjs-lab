@@ -57,7 +57,7 @@ var myLab = myLab || {};
 
     // initial position
     this.x = canvas.width / 2;
-    this.y = canvas.height / 2;
+    this.y = canvas.height - 100;
 
     // start animation
     this._asset.gotoAndPlay('walk');
