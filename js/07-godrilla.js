@@ -196,6 +196,8 @@ var myLab = myLab || {};
     if (sphere.hitTest(hero)) {
       if (sphere.moveSpeedY > 0) {
         // only bounce if ball is moving downward
+        // TODO better bouncing angle
+        // http://gamedev.stackexchange.com/questions/4253/how-do-you-calculate-where-a-ball-should-go-when-it-bounces-off-the-bar
         sphere.moveSpeedY *= -1;
       }
     }
